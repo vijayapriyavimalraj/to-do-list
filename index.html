@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+   
+    <title>Document</title>
+</head>
+<body >
+    <div class="flex">
+       
+        <img src="todo 3.jpg"  class="w-1/2 h-screen object-cover"  >
+        <div class="absolute top-0 my-0 left-0 w-0 text-center">
+            <h1 class="text-pink-950 text-5xl py-0 font-bold">TO DO LIST !!</h1>
+        </div>
+        <div class="relative ">
+        <img src="white page.jpg"  class="w-100   h-screen object-cover">
+
+        <div class="absolute inset-0 flex items-center flex items-start mx-auto pr-0">
+            <div  class="bg-rose-500 p-28 shadow-lg rounded-lg">
+                
+            <div class="flex justify-center">
+                <input type="text" id="taskInput" placeholder="add your text" class="p-3 border border-pink-900 rounded-md focus:outline-none focus:border-black">
+
+                <button id="addTaskBtn"  class="bg-zinc-100 border-4 border-black font-bold rounded-md px-4">ADD TASK</button>
+            </div>
+            <ul id="taskList"></ul>
+            </div>
+        
+            </div>
+        </div>
+        </div>
+       
+    </div>
+    
+
+<style>
+  
+
+    .complete-btn {
+        background-color: #57d127;
+        color: white;
+        border: none;
+        padding: 5px 10px; 
+        cursor: pointer;
+        margin-left: 10px; 
+    }
+
+    .undo-btn {
+        background-color: #489de2; 
+        color: white; 
+        border: none; 
+        padding: 5px 10px; 
+        cursor: pointer; 
+    }
+
+    .complete-btn:hover {
+        background-color: #1eaef1; 
+    }
+
+    .undo-btn:hover {
+        background-color: #1eaef1; 
+    }
+
+
+    .delete-btn {
+        background-color: black; 
+        color: rgb(230, 103, 181); 
+        border: none; 
+        padding: 5px 10px; 
+        cursor: pointer;
+        margin-left: 10px; 
+    }
+
+    .delete-btn:hover {
+        background-color:gainsboro;
+    }
+
+    .task {
+        font-weight: bold;
+        margin-top:  20px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center; 
+    }
+    .task.completed label {
+        text-decoration: line-through;
+    }
+    .task label {
+        flex: 1; 
+    }
+    .task input[type="checkbox"] {
+        margin-right: 10px; 
+     
+    }
+
+  
+
+
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const taskInput = document.getElementById('taskInput');
+        const addTaskBtn = document.getElementById('addTaskBtn');
+        const taskList = document.getElementById('taskList');
+
+        addTaskBtn.addEventListener('click', function() {
+            const taskText = taskInput.value.trim();
+            if (taskText !== '') {
+                addTask(taskText);
+                taskInput.value = '';
+            }
+            else
+             {
+                    alert('Please enter a task before adding!!'); 
+            }
+        });
+
+        function addTask(text) {
+            const li = document.createElement('li');
+            li.classList.add('task');
+
+            const label = document.createElement('label');
+            label.textContent = text;
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = 'Delete';
+            deleteBtn.classList.add('delete-btn');
+
+            deleteBtn.addEventListener('click', function() {
+                li.remove();
+            });
+
+            const completeBtn = document.createElement('button');
+            completeBtn.textContent = 'Complete';
+            completeBtn.classList.add('complete-btn');
+
+            completeBtn.addEventListener('click', function() {
+                if (li.classList.contains('completed')) {
+                    li.classList.remove('completed');
+                    completeBtn.textContent = 'Complete'; // Change button text back to 'Complete'
+                } else {
+                    li.classList.add('completed');
+                    completeBtn.textContent = 'Undo'; // Change button text to 'Undo' when completed
+                }
+            });
+
+            li.appendChild(label);
+            li.appendChild(deleteBtn);
+            li.appendChild(completeBtn);
+            taskList.appendChild(li);
+        }
+    });
+</script>
+</body>
+</html>
